@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>Viola & Verso · Sertanejo Legendado</title>
+    <!-- Fontes e ícones -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #faf6ed;  /* tom de couro/cuiabá */
+            font-family: 'Montserrat', sans-serif;
+            color: #2e241f;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* cabeçalho com clima de festa */
+        .header-sertanejo {
+            background: linear-gradient(145deg, #2b1e16 0%, #3c2c23 100%);
+            color: #fbe9d2;
+            padding: 40px 0 25px;
+            border-bottom: 8px solid #b4773c;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .header-sertanejo::after {
+            content: "♪♫";
+            position: absolute;
+            bottom: -16px;
+            right: 30px;
+            font-size: 44px;
+            color: #e6c229;
+            text-shadow: 4px 4px 0 #7a4d2e;
+            opacity: 0.5;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.1rem;
+            font-weight: 700;
+            font-style: italic;
+            text-shadow: 4px 4px 0 #5e3a28;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+
+        .viola-icon {
+            color: #e6b422;
+            font-size: 2.8rem;
+            margin-right: 15px;
+        }
+
+        .subtitulo {
+            font-size: 1.1rem;
+            font-weight: 400;
+            border-left: 5px solid #d9923a;
+            padding-left: 15px;
+            background: rgba(255,235,200,0.1);
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Menu de navegação artistas */
+        .artistas-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 40px 0 20px;
+            justify-content: center;
+        }
+
+        .btn-artista {
+            background: #e7d6c0;
+            border: none;
+            border-bottom: 4px solid #a1846a;
+            color: #2b1e16;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 40px 10px 40px 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.08);
+        }
+
+        .btn-artista i {
+            color: #8b3c1b;
+            font-size: 1.3rem;
+        }
+
+        .btn-artista:hover, .btn-artista.ativo {
+            background: #dbbc92;
+            border-bottom-color: #502e1a;
+            transform: scale(1.02);
+            color: #1a120c;
+            box-shadow: 10px 10px 0 #392e26;
+        }
+
+        /* cards de música */
+        .secao-musicas {
+            background: #fffbf5;
+            border-radius: 40px 40px 20px 20px;
+            padding: 30px 25px;
+            margin: 30px 0;
+            box-shadow: 0 0 0 1px rgba(180, 120, 70, 0.2), 0 20px 30px -10px rgba(60, 40, 25, 0.3);
+        }
+
+        .cantor-titulo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 3px dashed #b3805a;
+            padding-bottom: 12px;
+            margin-bottom: 35px;
+            font-size: 2rem;
+            color: #412e1f;
+        }
+
+        .cantor-titulo i {
+            background: #7b4f33;
+            color: #ffddaa;
+            padding: 12px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+        }
+
+        .grade-musicas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        /* estilo do cartão de música – com legenda */
+        .card-musica {
+            background: #ffffff;
+            border-radius: 24px 8px 24px 8px;
+            box-shadow: 8px 8px 0 #3c2c23, 0 5px 15px rgba(0,0,0,0.1);
+            padding: 0;
+            transition: all 0.25s;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #c9a77d;
+        }
+
+        .card-musica:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 14px 14px 0 #2b1e16;
+        }
+
+        .cabecalho-musica {
+            background: #dac2a7;
+            padding: 18px 18px 10px;
+            border-radius: 22px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cabecalho-musica h3 {
+            font-weight: 700;
+            font-size: 1.45rem;
+            color: #1e140f;
+            letter-spacing: -0.5px;
+        }
+
+        .cifra {
+            background: #7c5d48;
+            padding: 8px 12px;
+            border-radius: 30px;
+            color: #fff3da;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border: 2px solid #fbc85a;
+        }
+
+        .legenda {
+            background: #fffbf0;
+            padding: 20px 18px;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: #1f1a15;
+            border-top: 2px dotted #ba7c4b;
+            border-bottom: 2px dotted #ba7c4b;
+            font-style: italic;
+            flex: 1;
+        }
+
+        .legenda i {
+            color: #975a37;
+            margin-right: 6px;
+        }
+
+        .player-simbol {
+            padding: 14px 18px;
+            background: #efede6;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: #5c3e2b;
+            border-radius: 0 0 22px 8px;
+            font-weight: 500;
+        }
+
+        .player-simbol i {
+            color: #b35e2e;
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        /* rodapé */
+        .rodape {
+            background: #2b1e16;
+            color: #ecdbba;
+            padding: 35px 0;
+            margin-top: 50px;
+            text-align: center;
+            border-top: 7px solid #a56a3b;
+        }
+
+        .rodape span {
+            color: #f5c542;
+        }
+
+        /* responsividade */
+        @media (max-width: 700px) {
+            h1 { font-size: 2.3rem; }
+            .logo-area { flex-direction: column; }
+        }
+
+        /* esconder seções de artistas não selecionados */
+        .grupo-cantor {
+            display: none;
+        }
+
+        .grupo-cantor.ativo {
+            display: block;
+        }
+
+        /* destaque para Marília */
+        .destaque-marilia {
+            background: radial-gradient(circle at 0% 20%, #fff2df, #fffbf5);
+        }
+        
+        .badge-ouro {
+            background: #f6c358;
+            color: #271c13;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header-sertanejo">
+        <div class="container">
+            <div class="logo-area">
+                <div style="display: flex; align-items: center;">
+                    <i class="fas fa-guitar viola-icon"></i>
+                    <h1>Viola&Verso</h1>
+                </div>
+                <p class="subtitulo">O sertanejo mais perto de você — com legenda completa</p>
+            </div>
+            <!-- navegação artistas: JM, HJ, MK, Marília Mendonça e mais -->
+            <div class="artistas-nav">
+                <button class="btn-artista ativo" onclick="mostrarCantor('jm')">
+                    <i class="fas fa-user"></i> JM
+                </button>
+                <button class="btn-artista" onclick="mostrarCantor('hj')">
+                    <i class="fas fa-user"></i> HJ
+                </button>
+                <button class="btn-artista" onclick="mostrarCantor('mk')">
+                    <i class="fas fa-user"></i> MK
+                </button>
+                <button class="btn-artista" onclick="mostrarCantor('marilia')">
+                    <i class="fas fa-crown"></i> Marília Mendonça
+                </button>
+                <button class="btn-artista" onclick="mostrarCantor('mais')">
+                    <i class="fas fa-star"></i> Mais ídolos
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- SEÇÃO JM -->
+        <div id="grupo-jm" class="grupo-cantor ativo secao-musicas">
+            <div class="cantor-titulo">
+                <i class="fas fa-hat-cowboy"></i>
+                <h2>JM · modas de viola</h2>
+                <span class="badge-ouro"><i class="fas fa-check"></i> legendado</span>
+            </div>
+            <div class="grade-musicas">
+                <!-- música 1 JM -->
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🍃 Chão de Terra</h3>
+                        <span class="cifra">♫ JM</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "No chão de terra eu fiz meu rancho,<br>
+                        &nbsp;&nbsp;&nbsp;cadê você, morena?<br>
+                        &nbsp;&nbsp;&nbsp;O sol queima o capim,<br>
+                        &nbsp;&nbsp;&nbsp;saudade é pena boa...
+                    </div>
+                    <div class="player-simbol">
+                        <i class="fas fa-play-circle"></i> ouvir simulado 
+                        <span style="margin-left: auto;"><i class="fas fa-closed-captioning"></i> legenda oficial</span>
+                    </div>
+                </div>
+                <!-- música 2 JM -->
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🚜 Grito de Boiadeiro</h3>
+                        <span class="cifra">♫ JM</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "O berrante chama a boiada,<br>
+                        &nbsp;&nbsp;&nbsp;vou levando a vida, vou levando o gado.<br>
+                        &nbsp;&nbsp;&nbsp;Te espero na curva do rio,<br>
+                        &nbsp;&nbsp;&nbsp;com o peito apaixonado..."
+                    </div>
+                    <div class="player-simbol">
+                        <i class="fas fa-play-circle"></i> ouvir simulado
+                        <span style="margin-left: auto;"><i class="fas fa-closed-captioning"></i> legenda</span>
+                    </div>
+                </div>
+                <!-- música 3 JM -->
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🌙 Luar do Sertão</h3>
+                        <span class="cifra">♫ JM</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "Luar do sertão, solidão e viola,<br>
+                        &nbsp;&nbsp;&nbsp;canto pra esquecer,<br>
+                        &nbsp;&nbsp;&nbsp;que um dia você foi minha,<br>
+                        &nbsp;&nbsp;&nbsp;hoje sou poeira ao vento..."
+                    </div>
+                    <div class="player-simbol">
+                        <i class="fas fa-play-circle"></i> ouvir simulado
+                        <span style="margin-left: auto;"><i class="fas fa-closed-captioning"></i> legenda</span>
+                    </div>
+                </div>
+            </div>
+            <!-- mais músicas JM (ilustrativo) -->
+            <p style="margin-top: 20px; font-style: italic; color: #694329;"><i class="fas fa-scroll"></i> + 8 músicas com legenda no repertório de JM</p>
+        </div>
+
+        <!-- SEÇÃO HJ -->
+        <div id="grupo-hj" class="grupo-cantor secao-musicas">
+            <div class="cantor-titulo">
+                <i class="fas fa-user-graduate"></i>
+                <h2>HJ · sofrência e viola</h2>
+                <span class="badge-ouro">todas legendadas</span>
+            </div>
+            <div class="grade-musicas">
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>💔 Copo e Mágoa</h3>
+                        <span class="cifra">♫ HJ</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "Encho o copo de lembrança,<br>
+                        &nbsp;&nbsp;&nbsp;bebo a dor de uma despedida.<br>
+                        &nbsp;&nbsp;&nbsp;Se amar é assim,<br>
+                        &nbsp;&nbsp;&nbsp;prefiro a saudade sem medida..."
+                    </div>
+                    <div class="player-simbol"><i class="fas fa-play-circle"></i> tocar trecho</div>
+                </div>
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🚛 Caminhão da Noite</h3>
+                        <span class="cifra">♫ HJ</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "Rodo a noite inteira, pensando em nós dois,<br>
+                        &nbsp;&nbsp;&nbsp;o rádio toca moda, parece a sua voz.<br>
+                        &nbsp;&nbsp;&nbsp;Nunca mais você ligou,<br>
+                        &nbsp;&nbsp;&nbsp;e o asfalto é meu cobertor..."
+                    </div>
+                    <div class="player-simbol"><i class="fas fa-play-circle"></i> tocar trecho</div>
+                </div>
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🍺 Outra Dose</h3>
+                        <span class="cifra">♫ HJ</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "Mais uma dose, garçom,<br>
+                        &nbsp;&nbsp;&nbsp;pra curar esse amor,<br>
+                        &nbsp;&nbsp;&nbsp;que me deixou na contra-mão,<br>
+                        &nbsp;&nbsp;&nbsp;hoje eu choro sem pudor..."
+                    </div>
+                    <div class="player-simbol"><i class="fas fa-play-circle"></i> tocar trecho</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO MK -->
+        <div id="grupo-mk" class="grupo-cantor secao-musicas">
+            <div class="cantor-titulo">
+                <i class="fas fa-microphone-alt"></i>
+                <h2>MK · moda raiz</h2>
+                <span class="badge-ouro">acervo legendado</span>
+            </div>
+            <div class="grade-musicas">
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🏹 Flecha de Amor</h3>
+                        <span class="cifra">♫ MK</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "Você acertou meu peito,<br>
+                        &nbsp;&nbsp;&nbsp;feito flecha de um guarani.<br>
+                        &nbsp;&nbsp;&nbsp;Hoje sou caboclo errante,<br>
+                        &nbsp;&nbsp;&nbsp;procurando seu carinho por aí..."
+                    </div>
+                    <div class="player-simbol"><i class="fas fa-play-circle"></i> ouvir legenda</div>
+                </div>
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🌄 Estrada Velha</h3>
+                        <span class="cifra">♫ MK</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "Poeira na estrada, lenço no pescoço,<br>
+                        &nbsp;&nbsp;&nbsp;vou buscar minha prenda.<br>
+                        &nbsp;&nbsp;&nbsp;Se o cavalo aguenta, eu aguento,<br>
+                        &nbsp;&nbsp;&nbsp;o amor é a rédea..."
+                    </div>
+                    <div class="player-simbol"><i class="fas fa-play-circle"></i> ouvir legenda</div>
+                </div>
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🍂 Folhas de Outono</h3>
+                        <span class="cifra">♫ MK</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "O vento levou suas promessas,<br>
+                        &nbsp;&nbsp;&nbsp;nem as folhas ficaram.<br>
+                        &nbsp;&nbsp;&nbsp;Restou só esse rancho frio,<br>
+                        &nbsp;&nbsp;&nbsp;e as lembranças que me calaram..."
+                    </div>
+                    <div class="player-simbol"><i class="fas fa-play-circle"></i> ouvir legenda</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO MARÍLIA MENDONÇA (homenagem) -->
+        <div id="grupo-marilia" class="grupo-cantor secao-musicas destaque-marilia">
+            <div class="cantor-titulo">
+                <i class="fas fa-crown" style="background: #c9894b; color: #ffecb3;"></i>
+                <h2>Marília Mendonça ♡</h2>
+                <span class="badge-ouro">RAINHA DA SOFRÊNCIA</span>
+            </div>
+            <div class="grade-musicas">
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>📝 Infiel</h3>
+                        <span class="cifra">♪ Marília</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-heart"></i> "Cê sabe muito bem que eu não mereço isso<br>
+                        &nbsp;&nbsp;&nbsp;‘Cê some e ainda tem a cara de pivô<br>
+                        &nbsp;&nbsp;&nbsp;Pense num descarado, sem vergonha<br>
+                        &nbsp;&nbsp;&nbsp;Me liga tarde e ainda pergunta: 'cê tá boa?'"
+                    </div>
+                    <div class="player-simbol"><i class="fas fa-play-circle"></i> ver legenda completa</div>
+                </div>
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>💔 Supera</h3>
+                        <span class="cifra">♪ Marília</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-heart"></i> "Eu sei que vai superar,<br>
+                        &nbsp;&nbsp;&nbsp;mas não precisa ser assim tão rápido<br>
+                        &nbsp;&nbsp;&nbsp;Porque eu não superei,<br>
+                        &nbsp;&nbsp;&nbsp;Ainda tô amando você..."
+                    </div>
+                    <div class="player-simbol"><i class="fas fa-play-circle"></i> ver legenda completa</div>
+                </div>
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🚪 Todo Mundo Vai Sofrer</h3>
+                        <span class="cifra">♪ Marília</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-heart"></i> "Bateu, levou<br>
+                        &nbsp;&nbsp;&nbsp;Não adianta achar que é imune, não<br>
+                        &nbsp;&nbsp;&nbsp;Todo mundo vai sofrer de amor, um dia..."
+                    </div>
+                    <div class="player-simbol"><i class="fas fa-play-circle"></i> ver legenda</div>
+                </div>
+            </div>
+            <p style="margin-top: 25px; background: #ebd6c2; padding: 10px; border-radius: 20px; text-align: center;">
+                <i class="fas fa-crown"></i> <strong>Legendas oficiais de Marília Mendonça</strong> – todas com letra revisada.
+            </p>
+        </div>
+
+        <!-- SEÇÃO "MAIS ÍDOLOS" (sertanejo geral) -->
+        <div id="grupo-mais" class="grupo-cantor secao-musicas">
+            <div class="cantor-titulo">
+                <i class="fas fa-users"></i>
+                <h2>Vozes do Sertão</h2>
+                <span class="badge-ouro">+ artistas</span>
+            </div>
+            <div class="grade-musicas">
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🌾 Jorge & Matheus</h3>
+                        <span class="cifra">sertanejo</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "Sosseguei, apaixonei,<br>
+                        &nbsp;&nbsp;&nbsp;é você que eu sempre sonhei,<br>
+                        &nbsp;&nbsp;&nbsp;vou parar de fugir,<br>
+                        &nbsp;&nbsp;&nbsp;dessa vez vou me entregar..."
+                    </div>
+                    <div class="player-simbol">❤️ legenda disponível</div>
+                </div>
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🌻 Maiara & Maraisa</h3>
+                        <span class="cifra">fem</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "Medo bobo, ciúme tolo,<br>
+                        &nbsp;&nbsp;&nbsp;vontade de te encontrar,<br>
+                        &nbsp;&nbsp;&nbsp;cê mora no meu pensamento,<br>
+                        &nbsp;&nbsp;&nbsp;não consigo te largar..."
+                    </div>
+                    <div class="player-simbol">🎤 legenda</div>
+                </div>
+                <div class="card-musica">
+                    <div class="cabecalho-musica">
+                        <h3>🍀 Gusttavo Lima</h3>
+                        <span class="cifra">embaixador</span>
+                    </div>
+                    <div class="legenda">
+                        <i class="fas fa-music"></i> "Fala comigo, amor, me dá um oi,<br>
+                        &nbsp;&nbsp;&nbsp;que eu tô na estrada, mas não desisti,<br>
+                        &nbsp;&nbsp;&nbsp;cansei de beber, cansei de sofrer,<br>
+                        &nbsp;&nbsp;&nbsp;quero você aqui..."
+                    </div>
+                    <div class="player-simbol">🎧 legenda</div>
+                </div>
+            </div>
+            <p style="text-align: right; font-weight: 600;">+ 50 músicas com legenda <i class="fas fa-arrow-right"></i></p>
+        </div>
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <p><i class="fas fa-closed-captioning" style="font-size: 1.8rem; color: #f3c26b;"></i></p>
+            <p style="font-size: 1.3rem; margin: 10px 0;"><span> Viola&Verso </span> — todas as letras são legendadas para você cantar junto</p>
+            <p>JM · HJ · MK · Marília Mendonça e todo o sertanejo raiz e universitário</p>
+            <p style="margin-top: 25px; opacity: 0.9;">© 2025 · Feito com paixão pela música caipira | legenda em cada verso</p>
+        </div>
+    </footer>
+
+    <!-- Script para alternar entre artistas (simple tabs) -->
+    <script>
+        function mostrarCantor(cantorId) {
+            // esconder todas as divs de grupo
+            let grupos = document.querySelectorAll('.grupo-cantor');
+            grupos.forEach(g => {
+                g.classList.remove('ativo');
+            });
+
+            // mostrar a div correspondente
+            let divMostrar = document.getElementById('grupo-' + cantorId);
+            if (divMostrar) {
+                divMostrar.classList.add('ativo');
+            }
+
+            // atualizar classe ativo nos botões
+            let botoes = document.querySelectorAll('.btn-artista');
+            botoes.forEach(b => {
+                b.classList.remove('ativo');
+            });
+
+            // marcar o botão clicado (pelo texto ou atributo data)
+            // farei de forma simples: corresponder pelo onclick
+            // como alternativa, identificamos pelo conteúdo aproximado
+            let botaoAtivo;
+            if (cantorId === 'jm') botaoAtivo = Array.from(botoes).find(b => b.innerText.includes('JM'));
+            else if (cantorId === 'hj') botaoAtivo = Array.from(botoes).find(b => b.innerText.includes('HJ'));
+            else if (cantorId === 'mk') botaoAtivo = Array.from(botoes).find(b => b.innerText.includes('MK'));
+            else if (cantorId === 'marilia') botaoAtivo = Array.from(botoes).find(b => b.innerText.includes('Marília'));
+            else if (cantorId === 'mais') botaoAtivo = Array.from(botoes).find(b => b.innerText.includes('Mais ídolos'));
+            
+            if (botaoAtivo) botaoAtivo.classList.add('ativo');
+        }
+
+        // inicializa - JM ativo por padrão. Caso algo falhe, forçar:
+        window.onload = function() {
+            // garantir que apenas JM aparece
+            mostrarCantor('jm');
+        };
+    </script>
+
+    <!-- compatibilidade com navegadores -->
+    <noscript>
+        <div style="background: #f2d6b4; padding: 20px;">JavaScript opcional para navegação; mas você vê todos os artistas abaixo:</div>
+    </noscript>
+    
+    <!-- (pré-visualização: todas as seções ficam visíveis se JS desligado, 
+    mas com nosso estilo .grupo-cantor.ativo só exibe um. JS é usado para troca) -->
+    <!-- como fallback, se JS desabilitado a classe ativo fica só na JM -->
+</body>
+</html>
